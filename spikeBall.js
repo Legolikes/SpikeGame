@@ -201,6 +201,7 @@ update(dt) {
      this.players[0].vel.y =  -0.1 * (this.players[0].vel.y);
     }
     if(this.players[0].pos.y < 0){
+     this.players[0].pos.y = 0;
      this.players[0].vel.y =  -this.players[0].vel.y;
     }
     if(this.players[0].pos.x > this._canvas.width){
