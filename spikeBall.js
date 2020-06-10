@@ -87,8 +87,8 @@ class Main
       new Player(),
       new Player(),
       ];
-      this.players[0].pos.x = 40;
-      this.players[1].pos.x = this._canvas.width -40;
+      this.players[0].pos.x = 60;
+      this.players[1].pos.x = this._canvas.width -60;
       this.players.forEach(player => {
         player.pos.y = this._canvas.height - this._canvas.height/3;
       });
@@ -197,6 +197,7 @@ update(dt) {
      }
      
     if(this.players[0].pos.y > this._canvas.height - this._canvas.height/3){
+     this.players[0].pos.y = this._canvas.height - this._canvas.height/3;
      this.players[0].vel.y =  -0.1 * (this.players[0].vel.y);
     }
     if(this.players[0].pos.y < 0){
@@ -276,8 +277,8 @@ function resetGame(){
     STUFF.ball.pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
     STUFF.ball.vel.x = 0;
     STUFF.ball.vel.y = 0;
-    STUFF.players[0].pos.x = 40;
-    STUFF.players[1].pos.x = STUFF._canvas.width -40;
+    STUFF.players[0].pos.x = 60;
+    STUFF.players[1].pos.x = STUFF._canvas.width -60;
     STUFF.players[0].pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
     STUFF.players[1].pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
 }
