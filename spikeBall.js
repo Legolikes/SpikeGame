@@ -123,17 +123,12 @@ class Main
         if(this.ball.vel.x <= 0){
         if(gameOver === false){
         prevScore += 1;
-         }
-        this.ball.vel.x = 1.75 *(this.net.pos.x -(this.ball.pos.x));
-         }else{
-        this.ball.vel.x = 1.75 *(this.net.pos.x -(this.ball.pos.x));
-        }
-        if(this.ball.vel.y > 0){
-        this.ball.vel.y = 1.75*(this.net.pos.y - (this.ball.pos.y));
-          }else{
-        this.ball.vel.y = 1.75*(this.net.pos.y - (this.ball.pos.y));
-        
           }
+        }
+        this.ball.vel.x = 1.75 *(this.net.pos.x -(this.ball.pos.x));
+         
+        
+        this.ball.vel.y = 1.75*(this.net.pos.y - 27 - (this.ball.pos.y));
       }
   }
 draw(){
@@ -179,7 +174,7 @@ update(dt) {
    this.players[0].pos.x += (this.players[0].vel.x * dt);
    
     if(ballGravity === true){
-    this.ball.vel.y += (15);
+    this.ball.vel.y += (13);
     }
     if(this.players[0].pos.y < this._canvas.height - this._canvas.height/3.5){
     this.players[0].vel.y += (30);
