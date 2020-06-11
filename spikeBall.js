@@ -179,7 +179,7 @@ update(dt) {
    this.players[0].pos.x += (this.players[0].vel.x * dt);
    
     if(ballGravity === true){
-    this.ball.vel.y += (16);
+    this.ball.vel.y += (15);
     }
     if(this.players[0].pos.y < this._canvas.height - this._canvas.height/3.5){
     this.players[0].vel.y += (30);
