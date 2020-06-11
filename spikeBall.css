@@ -35,8 +35,8 @@ body{
    box-shadow: 0px 0px #;
 }
 #resetButton:hover {
-border-color: #3bba1e;
-color: #3bba1e;
+border-color: #0000FF;
+color: #0000FF;
 }
 
 #startButton{
@@ -53,7 +53,7 @@ color: #3bba1e;
    box-shadow: 0px 0px #;
 }
 #startButton:hover {
-border-color: #3bba1e;
-color: #3bba1e;
+border-color: #0000FF;
+color: #0000FF;
 }
   

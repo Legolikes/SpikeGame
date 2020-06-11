@@ -1,4 +1,16 @@
-
+const loadImage = url => new Promise(resolve => {
+  const image = new Image();
+  image.src = url;
+  image.onload = () => resolve(image);
+});
+Promise.all([
+  loadImage('background.png'),
+  loadImage('spikeBall.png'),
+  loadImage('net.png'),
+  loadImage('player0.png'),
+  loadImage('player1.png'),
+  ]).then(function main(images) {
+ 
 var ballGravity = false;
 var prevScore = 0;
 var topScore = 0;
@@ -55,7 +67,7 @@ class Ball extends Rect
 {
   constructor()
   {
-    super(20,20);
+    super(25,25);
     this.vel = new Vec();
   }
 }
@@ -75,12 +87,12 @@ class Main
     this._context = canvas.getContext('2d');
     this.net = new Net();
     this.net.pos.x = this._canvas.width/2;
-    this.net.pos.y = this._canvas.height - this._canvas.height/10 ;
+    this.net.pos.y = this._canvas.height - this._canvas.height/8 ;
     this.net.vel.x = 0;
     this.net.vel.y = 0;
     this.ball = new Ball();
     this.ball.pos.x = this._canvas.width/6;
-    this.ball.pos.y = this._canvas.height - this._canvas.height/3;
+    this.ball.pos.y = (this._canvas.height - this._canvas.height/3) -60;
     this.ball.vel.x = 0;
     this.ball.vel.y = 0;
     this.players = [
@@ -89,9 +101,8 @@ class Main
       ];
       this.players[0].pos.x = 60;
       this.players[1].pos.x = this._canvas.width -60;
-      this.players.forEach(player => {
-        player.pos.y = this._canvas.height - this._canvas.height/3;
-      });
+      this.players[0].pos.y = this._canvas.height - this._canvas.height/3;
+      this.players[1].pos.y = this.ball.pos.y + 60;
       this.players[0].vel.y = 0;
 
     let lastTime;
@@ -113,41 +124,45 @@ class Main
         if(gameOver === false){
         prevScore += 1;
          }
-        this.ball.vel.x = 1.5 *(this.net.pos.x -(this.ball.pos.x));
+        this.ball.vel.x = 1.75 *(this.net.pos.x -(this.ball.pos.x));
          }else{
-        this.ball.vel.x = 1.5 *(this.net.pos.x -(this.ball.pos.x));
+        this.ball.vel.x = 1.75 *(this.net.pos.x -(this.ball.pos.x));
         }
         if(this.ball.vel.y > 0){
-        this.ball.vel.y = 1.5*(this.net.pos.y - (this.ball.pos.y));
+        this.ball.vel.y = 1.75*(this.net.pos.y - (this.ball.pos.y));
           }else{
-        this.ball.vel.y = 1.5*(this.net.pos.y - (this.ball.pos.y));
+        this.ball.vel.y = 1.75*(this.net.pos.y - (this.ball.pos.y));
         
           }
       }
   }
 draw(){
-    this._context.fillStyle = '#000000';
-    this._context.fillRect(0,0, this._canvas.width, this._canvas.height);
+    this._context.drawImage(images[0], 0, 0, this._canvas.width, this._canvas.height);
+    
     this.drawnet(this.net);
     this.drawball(this.ball);
     this.drawplayer0(this.players[0]);
     this.drawplayer1(this.players[1]);
   }
   drawplayer0(rect){
-    this._context.fillStyle = '#ffffff';
-    this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+     this._context.drawImage(images[3], rect.left, rect.top, rect.size.x, rect.size.y);
+   // this._context.fillStyle = '#ffffff';
+   // this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
     }
   drawplayer1(rect){
-    this._context.fillStyle = '#ffffff';
-    this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+     this._context.drawImage(images[4], rect.left, rect.top, rect.size.x, rect.size.y);
+   // this._context.fillStyle = '#ffffff';
+    //this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
     }
   drawnet(rect){
-    this._context.fillStyle = '#ffffff';
-    this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+    this._context.drawImage(images[2], rect.left, rect.top, rect.size.x, rect.size.y);
+    //this._context.fillStyle = '#ffffff';
+    //this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
     }
   drawball(rect){
-    this._context.fillStyle = '#ffffff';
-    this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+    this._context.drawImage(images[1], rect.left, rect.top, rect.size.x, rect.size.y);
+   // this._context.fillStyle = '#ffffff';
+   //this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
     }
 
 update(dt) {
@@ -164,9 +179,9 @@ update(dt) {
    this.players[0].pos.x += (this.players[0].vel.x * dt);
    
     if(ballGravity === true){
-    this.ball.vel.y += (11);
+    this.ball.vel.y += (13);
     }
-    if(this.players[0].pos.y < this._canvas.height - this._canvas.height/3){
+    if(this.players[0].pos.y < this._canvas.height - this._canvas.height/3.5){
     this.players[0].vel.y += (30);
     }
     
@@ -196,8 +211,8 @@ update(dt) {
      this.net.pos.x = 0;
      }
      
-    if(this.players[0].pos.y > this._canvas.height - this._canvas.height/3){
-     this.players[0].pos.y = this._canvas.height - this._canvas.height/3;
+    if(this.players[0].pos.y > this._canvas.height - this._canvas.height/3.5){
+     this.players[0].pos.y = this._canvas.height - this._canvas.height/3.5;
      this.players[0].vel.y =  -0.1 * (this.players[0].vel.y);
     }
     if(this.players[0].pos.y < 0){
@@ -226,7 +241,7 @@ update(dt) {
     }else{
       document.onkeydown = null;
       }
-    this.players[1].pos.y = this.ball.pos.y;
+    this.players[1].pos.y = this.ball.pos.y + 60;
     this.players.forEach(player => this.collide(player, this.ball));
     this.draw();
   }
@@ -271,17 +286,13 @@ function resetGame(){
   ballGravity = false;
   displayResults();
     STUFF.net.pos.x = STUFF._canvas.width/2;
-    STUFF.net.pos.y = STUFF._canvas.height - STUFF._canvas.height/10;
-    STUFF.net.vel.x = 0;
-    STUFF.net.vel.y = 0;
+    STUFF.net.pos.y = STUFF._canvas.height - STUFF._canvas.height/8;
     STUFF.ball.pos.x = STUFF._canvas.width/6;
-    STUFF.ball.pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
+    STUFF.ball.pos.y = (STUFF._canvas.height - STUFF._canvas.height/3) - 60;
     STUFF.ball.vel.x = 0;
     STUFF.ball.vel.y = 0;
-    STUFF.players[0].pos.x = 60;
-    STUFF.players[1].pos.x = STUFF._canvas.width -60;
     STUFF.players[0].pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
-    STUFF.players[1].pos.y = STUFF._canvas.height - STUFF._canvas.height/3;
+    
 }
 function startGame(){
   if(gameReset === true){
@@ -294,5 +305,6 @@ function startGame(){
 
 function randomNetPos(){
   STUFF.net.pos.x = Math.floor((Math.random() -0.5) * 400)+600;
-
 }
+
+});
