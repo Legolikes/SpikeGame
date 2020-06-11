@@ -9,6 +9,8 @@ Promise.all([
   loadImage('net.png'),
   loadImage('player0.png'),
   loadImage('player1.png'),
+  loadImage('bluePlayerJump.png'),
+  loadImage('redPlayerJump.png'),
   ]).then(function main(images) {
  
 var ballGravity = false;
@@ -136,9 +138,20 @@ draw(){
     
     this.drawnet(this.net);
     this.drawball(this.ball);
+    
+    if(this.players[0].pos.y< this._canvas.height/1.5){
+    this.drawplayer0jump(this.players[0]);
+    }else{
     this.drawplayer0(this.players[0]);
+    }
+    
+    if(this.players[1].pos.y< this._canvas.height/1.5){
+    this.drawplayer1jump(this.players[1]);
+    }else{
     this.drawplayer1(this.players[1]);
+    }
   }
+  
   drawplayer0(rect){
      this._context.drawImage(images[3], rect.left, rect.top, rect.size.x, rect.size.y);
    // this._context.fillStyle = '#ffffff';
@@ -146,6 +159,16 @@ draw(){
     }
   drawplayer1(rect){
      this._context.drawImage(images[4], rect.left, rect.top, rect.size.x, rect.size.y);
+   // this._context.fillStyle = '#ffffff';
+    //this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+    }
+  drawplayer0jump(rect){
+     this._context.drawImage(images[5], rect.left, rect.top, rect.size.x, rect.size.y);
+   // this._context.fillStyle = '#ffffff';
+   // this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
+    }
+  drawplayer1jump(rect){
+     this._context.drawImage(images[6], rect.left, rect.top, rect.size.x, rect.size.y);
    // this._context.fillStyle = '#ffffff';
     //this._context.fillRect(rect.left, rect.top, rect.size.x, rect.size.y);
     }
